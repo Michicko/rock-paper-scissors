@@ -12,5 +12,16 @@ function getComputerChoice(){
     return choice
 }
 
-getComputerChoice()
+function getHumanChoice(){
+    let input = '';
+    let choice = '';
 
+    do {
+       input = prompt('Choose between rock, paper and scissors: ');
+       choice = input.toLowerCase();
+    } while(choice !== 'rock' && choice !== 'paper' && choice !== 'scissors')
+
+    return choice;
+}
+
+console.log(getComputerChoice(), getHumanChoice())
