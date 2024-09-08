@@ -18,74 +18,98 @@ function getHumanChoice(){
 
     do {
        input = prompt('Rock! Paper! Scissors!');
+       if(!input){
+        console.log('Canceled! Reload to play again!');
+        return;
+       }
        choice = input.toLowerCase();
     } while(choice !== 'rock' && choice !== 'paper' && choice !== 'scissors')
 
     return choice;
 }
 
+function playRound(){
+    let humanChoice = getHumanChoice();
+    let computerChoice = getComputerChoice();
+    let roundWinner;
+
+    if(
+        (humanChoice == 'rock' && computerChoice == 'rock') || 
+        (humanChoice === 'paper' && computerChoice == 'paper') ||
+        ( humanChoice == 'scissors' && computerChoice == 'scissors')
+    ){
+        roundWinner = 'draw';
+        console.log('Draw!');
+    } else if (humanChoice == 'rock'){
+        if(computerChoice == 'paper'){
+            roundWinner = 'computer';
+            console.log("You lose! Paper beats Rock");
+        }else if(computerChoice == 'scissors'){
+            roundWinner = 'player';
+            console.log("You win! Rock beats Scissors");
+        }
+    } else if(humanChoice == 'paper'){
+        if(computerChoice == 'rock'){
+            roundWinner = 'player';
+            console.log("You win! Paper beats Rock");
+        }else if(computerChoice == 'scissors'){
+            roundWinner = 'computer';
+            console.log("You lose! Scissors beats Paper");
+        }
+    }else if(humanChoice == 'scissors'){
+        if(computerChoice == 'rock'){
+            roundWinner = 'computer';
+            console.log("You lose! Rock beats Scissors");
+        }else if(computerChoice == 'paper'){
+            roundWinner = 'player';
+            console.log("You win! Scissors beats Paper");
+        }
+    }
+    return roundWinner;
+}
+
 function playGame(){   
-    // player scores 
     let humanScore = 0;
     let computerScore = 0;
+    let rounds = 5;
+
     
+    // play rounds
+    while(rounds >= 1){
+        const roundWinner = playRound();
 
-    // Play round
-    function playRound(){
-        let humanChoice = getHumanChoice();
-        let computerChoice = getComputerChoice();
-
-        if(
-            (humanChoice == 'rock' && computerChoice == 'rock') || 
-            (humanChoice === 'paper' && computerChoice == 'paper') ||
-            ( humanChoice == 'scissors' && computerChoice == 'scissors')
-        ){
-            console.log('Draw!');
-        } else if (humanChoice == 'rock'){
-            if(computerChoice == 'paper'){
-                computerScore += 1;
-                console.log("You lose! Paper beats Rock");
-            }else if(computerChoice == 'scissors'){
-                humanScore += 1;
-                console.log("You win! Rock beats Scissors");
-            }
-        } else if(humanChoice == 'paper'){
-            if(computerChoice == 'rock'){
-                humanScore += 1;
-                console.log("You win! Paper beats Rock");
-            }else if(computerChoice == 'scissors'){
-                computerScore += 1;
-                console.log("You lose! Scissors beats Paper");
-            }
-        }else if(humanChoice == 'scissors'){
-            if(computerChoice == 'rock'){
-                computerScore += 1;
-                console.log("You lose! Rock beats Scissors");
-            }else if(computerChoice == 'paper'){
-                humanScore += 1;
-                console.log("You win! Scissors beats Paper");
-            }
+        // if canceled game
+        if(!roundWinner){
+            break;
         }
+
+        // manage player scores
+        if (roundWinner === 'player'){
+            humanScore += 1;
+        }else if(roundWinner === 'computer'){
+            computerScore += 1;
+        }
+
         // display current round score
         console.log('Scores: ', 'Player:', humanScore,':', 'Computer:', computerScore)
-    }
 
-
-     // play 5 rounds
-    let rounds = 5;
-    while(rounds >= 1){
-        playRound();
         rounds -= 1;
+        if (roundWinner === 'draw'){
+          rounds += 1;   
+        }
     }
 
     // check score for final winner
     if(computerScore > humanScore){
-        console.log('You Lose! Computer wins');
+        console.log('You Lose! Computer wins!');
     }else if (humanScore > computerScore){
-        console.log('You WIn! Congratulations ***');
-    }else{
-        console.log('Draw! Reload to play again!');
+        console.log('You Win! Congratulations! ***');
     }
 }
 
 playGame();
+
+// restructured the play round to return current round winner
+// kept track of player scores
+// Replay round if draw 
+// handle canceled game
