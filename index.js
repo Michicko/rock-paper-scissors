@@ -68,48 +68,26 @@ function playRound(){
     return roundWinner;
 }
 
-function playGame(){   
-    let humanScore = 0;
-    let computerScore = 0;
-    let rounds = 5;
+    // let humanScore = 0;
+    // let computerScore = 0;
 
+    // // manage player scores
+    // if (roundWinner === 'player'){
+    //     humanScore += 1;
+    // }else if(roundWinner === 'computer'){
+    //     computerScore += 1;
+    // }
+
+    // display current round score
+    // console.log('Scores: ', 'Player:', humanScore,':', 'Computer:', computerScore)
+
+    // if (roundWinner === 'draw'){
+    //   rounds += 1;   
+    // }
     
-    // play rounds
-    while(rounds >= 1){
-        const roundWinner = playRound();
-
-        // if canceled game
-        if(!roundWinner){
-            break;
-        }
-
-        // manage player scores
-        if (roundWinner === 'player'){
-            humanScore += 1;
-        }else if(roundWinner === 'computer'){
-            computerScore += 1;
-        }
-
-        // display current round score
-        console.log('Scores: ', 'Player:', humanScore,':', 'Computer:', computerScore)
-
-        rounds -= 1;
-        if (roundWinner === 'draw'){
-          rounds += 1;   
-        }
-    }
-
-    // check score for final winner
-    if(computerScore > humanScore){
-        console.log('You Lose! Computer wins!');
-    }else if (humanScore > computerScore){
-        console.log('You Win! Congratulations! ***');
-    }
-}
-
-playGame();
-
-// restructured the play round to return current round winner
-// kept track of player scores
-// Replay round if draw 
-// handle canceled game
+    // // check score for final winner
+    // if(computerScore > humanScore){
+    //     console.log('You Lose! Computer wins!');
+    // }else if (humanScore > computerScore){
+    //     console.log('You Win! Congratulations! ***');
+    // }
