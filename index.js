@@ -1,3 +1,5 @@
+const playerOptionsDiv = document.querySelector('.btns');
+const playerOptions = playerOptionsDiv.querySelectorAll('button');
 
 function getComputerChoice(){
     const random = Math.floor(Math.random() * 3);
@@ -12,24 +14,8 @@ function getComputerChoice(){
     return choice
 }
 
-function getHumanChoice(){
-    let input = '';
-    let choice = '';
-
-    do {
-       input = prompt('Rock! Paper! Scissors!');
-       if(!input){
-        console.log('Canceled! Reload to play again!');
-        return;
-       }
-       choice = input.toLowerCase();
-    } while(choice !== 'rock' && choice !== 'paper' && choice !== 'scissors')
-
-    return choice;
-}
-
-function playRound(){
-    let humanChoice = getHumanChoice();
+function playRound(e){
+    let humanChoice = e.target.textContent.toLowerCase();
     let computerChoice = getComputerChoice();
     let roundWinner;
 
@@ -65,7 +51,8 @@ function playRound(){
             console.log("You win! Scissors beats Paper");
         }
     }
-    return roundWinner;
+    // return roundWinner;
+    console.log(roundWinner);
 }
 
     // let humanScore = 0;
@@ -91,3 +78,7 @@ function playRound(){
     // }else if (humanScore > computerScore){
     //     console.log('You Win! Congratulations! ***');
     // }
+
+    playerOptions.forEach((playerOption) => {
+        playerOption.addEventListener('click', playRound);
+    })
